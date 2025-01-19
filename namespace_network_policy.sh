@@ -1,11 +1,11 @@
 echo
-echo "=== Labeling namespaces ==="
+echo "Labeling namespaces here..."
 kubectl label namespace dev name=dev   --overwrite
 kubectl label namespace uat name=uat   --overwrite
 kubectl label namespace prod name=prod --overwrite
 
 echo
-echo "=== Applying NetworkPolicies to block dev <-> prod ==="
+echo "Applying NetworkPolicies here to block dev and prod thing"
 cat <<EOF | kubectl apply -f -
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -47,10 +47,5 @@ spec:
 EOF
 
 echo
-echo "=== Summary: ==="
-echo "1. Namespaces 'dev', 'uat', 'prod' created (if not already)."
-echo "2. 'dev' netpol allows only from dev+uat => blocks prod->dev."
-echo "3. 'prod' netpol allows only from prod+uat => blocks dev->prod."
-echo "4. 'uat' has no netpol => open to/from dev and prod."
-echo
-echo "Done! dev <-> prod are now blocked, dev <-> uat and prod <-> uat remain open."
+echo ""
+echo "2. 'dev' net policy allows  from dev+uat and now blocks prod->dev."
